@@ -1,13 +1,8 @@
 // Home.tsx
 "use client";
 import React, { useState, ChangeEvent } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronUp, faChevronDown, faTimes, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 interface Message {
   role: 'user' | 'assistant';
@@ -15,31 +10,41 @@ interface Message {
 }
 
 const topics = [
-  { id: 1, title: 'Membership Information', response: 'Our membership program provides access to valuable resources, courses, internships, and events. The fee ensures that members fully engage with these opportunities.' },
-  { id: 2, title: 'Refund Policy', response: 'Yes, the membership fee is refundable! You can earn it back by participating in our social internships, events, and conferences.' },
-  { id: 3, title: '200+ Premium Courses', response: 'We offer over 200 premium courses in various domains to boost your skills and knowledge.' },
-  { id: 4, title: 'Uni AI', response: 'Uni AI is our advanced AI tool designed to help you excel academically and professionally.' },
-  { id: 5, title: '5000+ Digital Premiums', response: 'Our digital library includes over 5000 resources, from eBooks to design assets.' },
-  { id: 6, title: 'Premium Notes', response: 'Access expertly crafted notes for all domains to aid your studies.' },
-  { id: 7, title: 'Career Track', response: 'Our career track guides you step by step to become job-ready with essential skills.' },
-  { id: 8, title: 'AI Tools for XGrowth', response: 'Use our top AI tools to accelerate your growth in your career and projects.' },
-  { id: 9, title: 'TRU Magazine - Eco-Management Pitch Event', response: 'Join our pitch event focused on eco-management and showcase your sustainable practices.' },
-  { id: 10, title: 'Eco-Friendly Innovations Pitch', response: 'Present your eco-friendly ideas at our upcoming pitch event.' },
-  { id: 11, title: 'Startup & Innovation Summit', response: 'Pitch your startup or innovation to experts and investors at our summit.' },
-  { id: 12, title: 'Prevent Animal Cruelty Campaign', response: 'Join us in raising awareness and taking action against animal cruelty.' },
-  { id: 13, title: 'Clothes and Food Donation Drive', response: 'Contribute to our drive by donating clothes and food to those in need.' },
-  { id: 14, title: 'Social Campaign for Awareness', response: 'Participate in our campaigns to spread awareness about critical societal issues.' },
-  { id: 15, title: 'Video Creation', response: 'Create a 3-minute video on an important social issue and share your insights.' },
-  { id: 16, title: 'Video Summarization', response: 'Watch 5 videos, summarize the life lessons, and connect them with your experiences.' },
-  { id: 17, title: 'Old Clothes Donation', response: 'Donate old clothes, record your experience, and inspire others to do the same.' },
-  { id: 18, title: 'Environmental Initiatives', response: 'Collect and send empty milk packets and seeds to support our environmental initiatives.' },
-  { id: 19, title: 'Life Lessons Explanation', response: 'Read life lesson chapters by Osho and explain them in your own words.' },
-  { id: 20, title: 'Membership Fee', response: 'Why do I have to pay a membership fee? - The fee ensures that students value and utilize the resources effectively.' },
-  { id: 21, title: 'Membership Benefits', response: 'What benefits do I get with the membership? - Access to premium courses, internships, events, and more.' },
-  { id: 22, title: 'Certification', response: 'Can we get certification for attending events and internships? - Yes, you will receive certifications for participation.' },
-  { id: 23, title: 'Partner Support', response: 'How do your partnered organizations help us? - They provide resources, mentorship, and networking opportunities.' },
-  { id: 24, title: 'Learning Beyond School', response: 'At UN Francisco, gain practical knowledge and skills that transform your life.' },
-  { id: 25, title: 'Skill Development', response: 'Become skilled at what matters and prepare yourself for the real world.' }
+  { 
+    id: 1, 
+    title: 'Membership Process', 
+    response: 'Membership is free. To join, submit a request by paying a ₹500 registration fee, which is refundable. Your registration fee will be refunded upon completion of a Social Internship or participation in events and conferences.' 
+  },
+  { 
+    id: 2, 
+    title: 'Benefits of Membership', 
+    response: 'Access to over ₹2 lakh worth of premium resources at no cost. Internships through CAF. Free access to major events, competitions, and conferences. Certification for every activity and participation, with opportunities for international certification through conferences. Free access to the Help Desk for any resources or assistance. And many more benefits!' 
+  },
+  { 
+    id: 3, 
+    title: 'Refund Process', 
+    response: 'Complete a Social Internship and participate in events or conferences to apply for a refund through the "Participation Certificate."' 
+  },
+  { 
+    id: 4, 
+    title: 'Premium Access Error', 
+    response: 'If you encounter errors accessing premium resources or links, please reach out to the Help Desk. Your issue will be resolved within 2-3 working days.' 
+  },
+  { 
+    id: 5, 
+    title: 'Payment Problem', 
+    response: 'For any payment issues, contact the Help Desk or our WhatsApp support immediately. Your query will be resolved promptly.' 
+  },
+  { 
+    id: 6, 
+    title: 'Other Doubts', 
+    response: 'Visit our FAQ page for more information.' 
+  },
+  { 
+    id: 7, 
+    title: 'Premium Access Problem', 
+    response: 'If you encounter any errors accessing premium resources through the portal, please visit the Help Desk. We will ensure the premium content is sent to you via email.' 
+  }
 ];
 
 
@@ -49,7 +54,6 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isMinimized, setIsMinimized] = useState<boolean>(false);
   const [isClosed, setIsClosed] = useState<boolean>(false);
-  const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
 
   const handleTopicSelection = (topic: string) => {
     const newMessage: Message = {
@@ -93,7 +97,7 @@ export default function Home() {
   if (isClosed) return null;
 
   return (
-    <div className={`fixed bottom-4 right-4 w-full max-w-xs ${isMinimized ? 'h-12' : 'h-[calc(100vh-2rem)]'} transition-all duration-300`}>
+    <div className={`fixed bottom-4 right-4 w-full max-w-sm ${isMinimized ? 'h-12' : 'h-[calc(100vh-2rem)]'} transition-all duration-300`}>
       <div className={`bg-white p-4 rounded-lg shadow-lg ${isMinimized ? 'h-full' : 'h-[calc(100vh-2rem)]'} overflow-hidden`}>
         <div className="flex justify-between items-center mb-4">
           <h1 className={`text-2xl font-bold text-blue-500 ${isMinimized ? 'text-base' : ''}`}>{isMinimized ? 'Chatbot' : 'Chatbot'}</h1>
@@ -101,16 +105,16 @@ export default function Home() {
             <button 
               onClick={() => setIsMinimized(!isMinimized)} 
               className="text-gray-500 hover:text-gray-700 mr-2"
-              aria-label={isMinimized ? '' : 'Minimize'}
+              aria-label={isMinimized ? 'Maximize' : 'Minimize'}
             >
-              {isMinimized ? '🔼' : '🔽'}
+              <FontAwesomeIcon icon={isMinimized ? faChevronUp : faChevronDown} />
             </button>
             <button 
               onClick={() => setIsClosed(true)} 
               className="text-gray-500 hover:text-gray-700"
               aria-label="Close"
             >
-              ❌
+              <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
         </div>
@@ -119,28 +123,25 @@ export default function Home() {
           <>
             <div className="mb-4 h-3/4 overflow-y-auto border border-gray-300 p-2 rounded-lg bg-gray-50">
               <div className="flex items-center flex-col mb-2">
-              <div className="mb-4">
-              <h2 className="text-sm max-w-md rounded-xl bg-green-500 text-white p-2">Welcome! I'm here to help you with any queries you have about our membership, resources, events, and social internships.</h2>
-              </div>
-                <div className="w-full flex justify-center mb-2">
-                  <Select onValueChange={(value) => handleTopicSelection(value)}>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select Topic" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {topics.map((topic) => (
-                        <SelectItem key={topic.id} value={topic.title}>
-                          {topic.title}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                <div className="mb-4">
+                  <h2 className="text-xs max-w-md rounded-xl bg-green-500 text-white p-2">Welcome! I'm here to help you with any queries you have about our membership, resources, events, and social internships.</h2>
+                </div>
+                <div className="grid grid-cols-2 gap-2 w-full text-xs">
+                  {topics.map((topic) => (
+                    <button
+                      key={topic.id}
+                      onClick={() => handleTopicSelection(topic.title)}
+                      className="bg-white text-blue-500 border border-blue-500 p-2 text-xs rounded-3xl hover:bg-blue-500 hover:text-white"
+                    >
+                      {topic.title}
+                    </button>
+                  ))}
                 </div>
               </div>
 
               {chatHistory.map((message, index) => (
                 <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} mb-2`}>
-                  <div className={`max-w-md rounded-xl p-2 ${message.role === 'user' ? 'bg-blue-500 text-white' : 'bg-green-500 text-white'}`}>
+                  <div className={`max-w-md rounded-xl p-2 text-xs ${message.role === 'user' ? 'bg-blue-500 text-white' : 'bg-green-500 text-white'}`}>
                     {message.content}
                   </div>
                 </div>
@@ -161,9 +162,24 @@ export default function Home() {
                 </div>
               ) : (
                 <button onClick={handleUserInput} className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600">
-                  Send
+                  <FontAwesomeIcon icon={faPaperPlane} />
                 </button>
               )}
+            </div>
+
+            <div className="flex mb-2 justify-between gap-2">
+              <a
+                href="#"
+                className="bg-white text-blue-500 border border-blue-500 p-2 text-xs rounded-lg hover:bg-blue-500 hover:text-white text-center w-full"
+              >
+                Helpdesk
+              </a>
+              <a
+                href="#"
+                className="bg-white text-blue-500 border border-blue-500 p-2 text-xs rounded-lg hover:bg-blue-500 hover:text-white text-center w-full"
+              >
+                Complaint & Support
+              </a>
             </div>
           </>
         )}
